@@ -1,12 +1,12 @@
 (function () {
 
-    window.drawScene = drawScene;
+    window.initScene = initScene;
 
-    function drawScene(objects, config) {
+    function initScene(containerSelector, objects, config) {
 
         var camera = getCamera(config.cameraConfig);
 
-        return render('#container',
+        return render(containerSelector,
             getScene(objects.concat([camera])),
             camera,
             config.size
@@ -22,7 +22,7 @@
             cameraConfig.far
         );
 
-        camera.position.z = 300;
+        camera.position.z = 200;
 
         return camera;
     }
@@ -43,14 +43,18 @@
 
     function render(containerSelector, scene, camera, sizeConfig) {
 
-        var renderer = new THREE.WebGLRenderer();
+        var renderer = new THREE.WebGLRenderer({
+            antialias: true
+        });
 
         renderer.setSize(sizeConfig.x, sizeConfig.y);
+        renderer.setClearColor( 0xFFFFFF, 1 );
+
         renderer.render(scene, camera);
 
         var domElem = $(containerSelector).append(renderer.domElement);
 
-        cameraControls  = new THREE.OrbitControls(camera, domElem[0]);
+        cameraControls  = new THREE.TrackballControls(camera, domElem[0]);
 
         return {
             renderer: renderer,

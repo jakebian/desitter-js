@@ -7,8 +7,8 @@
 
     var CONFIG = {
         size: {
-            x: 400,
-            y: 300,
+            x: 800,
+            y: 400,
         },
         cameraConfig: {
             viewAngle: 45,
@@ -18,32 +18,41 @@
         }
     }
 
-    var mesh = marchingCubes([64,64,64], function(x,y,z) {
-      return x*x + y*y + z*z - 100
-    })
+    var adsMesh = marchingCubes([64,64,64], function(t, z, x) {
+        return - t*t - x*x + z*z - 100
+    }, [[-151,-151,-151], [151,151,151]]);
+
+    var dsMesh = marchingCubes([64,64,64], function(t, z, x) {
+        return - t*t + x*x + z*z - 100
+    }, [[-151,-151,-151], [151,151,151]])
 
 
-    var sceneElements = drawScene([
-        sceneObjectFactory.getCircleMesh(),
-        sceneObjectFactory.getSurfaceMesh(mesh),
+    var dsScene = initScene('#ads-container', [
+        sceneObjectFactory.getSurfaceMesh(adsMesh),
         sceneObjectFactory.getAmbientLight()
     ], CONFIG);
 
-    animate();
+    var adsScene = initScene('#ds-container', [
+        sceneObjectFactory.getSurfaceMesh(dsMesh),
+        sceneObjectFactory.getAmbientLight()
+    ], CONFIG);
 
-    function animate() {
-        requestAnimationFrame(animate);
-        render();
+    animate(adsScene);
+    animate(dsScene);
+
+    function animate(scene) {
+        requestAnimationFrame(function () {
+            animate(scene);
+        });
+        render(scene);
     }
 
-    function render() {
-        sceneElements.cameraControls.update();
-        sceneElements.renderer.render(
-            sceneElements.scene,
-            sceneElements.camera
+    function render(scene) {
+        scene.cameraControls.update();
+        scene.renderer.render(
+            scene.scene,
+            scene.camera
         );
     }
-
-    console.log(mesh)
 
 })();
