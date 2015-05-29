@@ -1,3 +1,4 @@
+
 (function () {
 
     /**
@@ -17,9 +18,32 @@
         }
     }
 
-    drawScene([
+    var mesh = marchingCubes([64,64,64], function(x,y,z) {
+      return x*x + y*y + z*z - 100
+    })
+
+
+    var sceneElements = drawScene([
         sceneObjectFactory.getCircleMesh(),
-        sceneObjectFactory.getPointLight()
+        sceneObjectFactory.getSurfaceMesh(mesh),
+        sceneObjectFactory.getAmbientLight()
     ], CONFIG);
+
+    animate();
+
+    function animate() {
+        requestAnimationFrame(animate);
+        render();
+    }
+
+    function render() {
+        sceneElements.cameraControls.update();
+        sceneElements.renderer.render(
+            sceneElements.scene,
+            sceneElements.camera
+        );
+    }
+
+    console.log(mesh)
 
 })();

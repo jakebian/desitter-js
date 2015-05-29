@@ -22,15 +22,9 @@
             cameraConfig.far
         );
 
-
-        /**
-         * Camera Initialization
-         */
-
         camera.position.z = 300;
 
         return camera;
-
     }
 
     function getScene(objects) {
@@ -56,12 +50,19 @@
 
         var domElem = $(containerSelector).append(renderer.domElement);
 
+        cameraControls  = new THREE.OrbitControls(camera, domElem[0]);
+
         return {
             renderer: renderer,
             scene: scene,
             camera: camera,
-            domElem: domElem
+            domElem: domElem,
+            cameraControls: cameraControls
         }
+
     }
+
+
+
 
 })();

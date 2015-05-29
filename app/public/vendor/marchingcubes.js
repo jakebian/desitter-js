@@ -1,3 +1,4 @@
+(function () {
 /**
  * Javascript Marching Cubes
  *
@@ -310,7 +311,7 @@ var edgeTable= new Uint32Array([
 
 
 
-exports.marchingCubes = function(dims, potential, bounds) {
+window.marchingCubes = function(dims, potential, bounds) {
   if(!bounds) {
     bounds = [[0,0,0], dims];
   }
@@ -376,3 +377,4 @@ exports.marchingCubes = function(dims, potential, bounds) {
   }
   return { positions: vertices, cells: faces };
 };
+})();
