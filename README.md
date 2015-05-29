@@ -1,5 +1,7 @@
 # deSitter.js
 
+![imageedit_2_8087111622](https://cloud.githubusercontent.com/assets/5866348/7875925/1e3aa0e8-0578-11e5-9e31-c4b35484d8cb.png)
+
 deSitter.js allows you to picture and interact with Anti de Sitter space in the web browser.
 
 ## Big Idea
