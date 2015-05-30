@@ -22,6 +22,7 @@
             cameraConfig.far
         );
 
+        camera.setLens(5, 1)
         camera.position.z = 200;
 
         return camera;
