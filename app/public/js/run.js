@@ -21,9 +21,9 @@
     }
 
 
-    var mousePointGeometry = new THREE.SphereGeometry( 5, 32, 32 );
+    var mousePointGeometry = new THREE.SphereGeometry( 1, 32, 32 );
     mousePointGeometry.dynamic = true;
-    var material = new THREE.MeshBasicMaterial( {color: 0x555555} );
+    var material = new THREE.MeshBasicMaterial( {color: 0xffffff} );
     var mousePoint = new THREE.Mesh(mousePointGeometry, material );
     mousePoint.position.z = 0;
 
@@ -69,13 +69,13 @@
         var intersects = raycaster.intersectObjects([adsMesh]);
 
         if (intersects[0]) {
+            mousePoint.visible = true;
             var intersectionPoint = intersects[0].point;
             mousePoint.position.x = intersectionPoint.x;
             mousePoint.position.y = intersectionPoint.y;
         }
-
-        for ( var i = 0; i < intersects.length; i++ ) {
-            // intersects[i].object.material.visible = false;
+        else {
+            mousePoint.visible = false;
         }
 
         sceneObj.cameraControls.update();

@@ -22,8 +22,8 @@
             cameraConfig.far
         );
 
-        camera.setLens(5, 1)
-        camera.position.z = 200;
+        camera.setLens(10, 1)
+        camera.position.z = 3000;
 
         return camera;
     }
